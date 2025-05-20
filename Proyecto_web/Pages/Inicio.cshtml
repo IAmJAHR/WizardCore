@@ -1,0 +1,7 @@
+﻿@page
+@model Proyecto_web.Pages.InicioModel
+@{
+    var nombreUsuario = HttpContext.Session.GetString("Nombre_Usuario");
+}
+
+<h2>Bienvenido, @nombreUsuario</h2>

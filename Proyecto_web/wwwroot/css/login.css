@@ -1,0 +1,45 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background-color: #f6f8fa;
+}
+
+.container-login {
+    display: flex;
+    height: 100vh;
+}
+
+.login-form-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+.form-box {
+    max-width: 500px; /* ⬅️ más ancho */
+    width: 100%;
+    padding: 60px 50px; /* ⬅️ más alto y espacioso */
+    background-color: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+input.form-control {
+    font-size: 1.1rem;
+    padding: 14px 16px;
+}
+.btn-primary {
+    font-size: 1rem;
+    padding: 12px;
+}
+
+.login-image-side {
+    flex: 1;
+    background: url('/img/login-banner.png') no-repeat center center;
+    background-size: cover;
+}

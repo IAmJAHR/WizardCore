@@ -1,0 +1,152 @@
+﻿@page
+@model Proyecto_web.Pages.CrearModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="container py-4">
+    <ul class="nav nav-tabs mb-4" id="usuarioTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="registrar-tab" data-bs-toggle="tab" data-bs-target="#registrar" type="button" role="tab" aria-controls="registrar" aria-selected="true">
+                <i class="bi bi-person-plus-fill me-1"></i>Registrar Usuario
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="panel-tab" data-bs-toggle="tab" data-bs-target="#panel" type="button" role="tab" aria-controls="panel" aria-selected="false">
+                <i class="bi bi-people-fill me-1"></i>Panel de Control
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="usuarioTabsContent">
+        <div class="tab-pane fade show active" id="registrar" role="tabpanel" aria-labelledby="registrar-tab">
+            <div class="card p-4 shadow border-0 rounded-4" style="max-width: 500px; margin: auto;">
+                <h4 class="mb-4 text-primary fw-bold text-center">
+                    <i class="bi bi-person-plus-fill me-2"></i>Registrar Usuario
+                </h4>
+
+                @if (!string.IsNullOrEmpty(Model.MensajeExito))
+                {
+                    <div class="alert alert-success">@Model.MensajeExito</div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.MensajeError))
+                {
+                    <div class="alert alert-danger">@Model.MensajeError</div>
+                }
+
+                <form method="post" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-person-circle me-2"></i>Nombre de Usuario
+                        </label>
+                        <input asp-for="NombreUsuario" class="form-control form-control-lg rounded-3" placeholder="Ej: Juan123" />
+                        <span class="text-danger" asp-validation-for="NombreUsuario"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-envelope-at-fill me-2"></i>Correo Electrónico
+                        </label>
+                        <input asp-for="Correo" class="form-control form-control-lg rounded-3" placeholder="ejemplo@correo.com" />
+                        <span class="text-danger" asp-validation-for="Correo"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">
+                            <i class="bi bi-shield-lock-fill me-2"></i>Contraseña
+                        </label>
+                        <input asp-for="Password" type="password" class="form-control form-control-lg rounded-3" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-3">
+                        <i class="bi bi-check-circle-fill me-2"></i>Registrar
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="panel" role="tabpanel" aria-labelledby="panel-tab">
+            <div class="mt-4">
+                <h4 class="fw-bold mb-3 text-primary">
+                    <i class="bi bi-people-fill me-2"></i>Panel de Usuarios
+                </h4>
+
+                @if (!string.IsNullOrEmpty(Model.MensajeExito))
+                {
+                    <div class="alert alert-success">@Model.MensajeExito</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.MensajeError))
+                {
+                    <div class="alert alert-danger">@Model.MensajeError</div>
+                }
+
+                <table class="table table-bordered table-hover shadow-sm rounded">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Sesión</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.ListaUsuarios)
+                        {
+                            <tr class="align-middle text-center">
+                                <td>@user.Id</td>
+                                <td>@user.NombreUsuario</td>
+                                <td>@user.Correo</td>
+                                <td>
+                                    @if (user.Estado == 1)
+                                    {
+                                        <span class="badge bg-success">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Baja</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (user.EnSesion)
+                                    {
+                                        <span class="text-success">Conectado</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-secondary">Desconectado</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <form method="post" asp-page-handler="ResetPassword" asp-route-id="@user.Id">
+                                            <button class="btn btn-warning btn-sm" title="Cambiar Contraseña">
+                                                <i class="bi bi-key-fill"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" asp-page-handler="Baja" asp-route-id="@user.Id">
+                                            <button class="btn btn-danger btn-sm" title="Dar de Baja" onclick="return confirm('Dar de baja al usuario?');">
+                                                <i class="bi bi-person-x-fill"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" asp-page-handler="CerrarSesion" asp-route-id="@user.Id">
+                                            <button class="btn btn-secondary btn-sm" title="Cerrar Sesión" @(user.EnSesion ? "" : "disabled")>
+                                                <i class="bi bi-box-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

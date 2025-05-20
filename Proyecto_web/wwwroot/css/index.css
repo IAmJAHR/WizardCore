@@ -1,0 +1,183 @@
+﻿body {
+    margin: 0;
+    background: linear-gradient(135deg, #000000, #0a0a0a);
+    font-family: 'Press Start 2P', monospace;
+    color: #00ffe1;
+    overflow: hidden;
+    animation: backgroundPulse 10s ease-in-out infinite;
+}
+
+.scanline {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 2px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.main-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: relative;
+    padding: 30px;
+}
+
+.terminal-box {
+    border: 2px solid #00ffe1;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 0 30px #00ffe1;
+    width: 100%;
+    max-width: 900px;
+    min-height: 450px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 1.6rem;
+    color: #00ffe1;
+    text-shadow: 0 0 12px #00ffe1;
+    animation: flicker 2s infinite alternate;
+}
+
+p {
+    margin-top: 1.2rem;
+    color: #ff007a;
+    font-size: 0.75rem;
+    line-height: 1.6;
+}
+
+.btn-glow {
+    font-size: 0.9rem;
+    margin-top: 30px;
+    padding: 14px 30px;
+    background-color: #ff00f0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #ff00f0;
+    transition: 0.2s ease-in-out;
+}
+
+    .btn-glow:hover {
+        box-shadow: 0 0 35px #ff00f0, 0 0 60px #ff00f0;
+        transform: scale(1.08);
+    }
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.6rem;
+    color: #888;
+}
+
+#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+.console-box {
+    background-color: rgba(0, 255, 255, 0.05);
+    border-left: 2px dashed #00ffe1;
+    padding: 30px;
+    color: #00ffe1;
+    font-size: 0.7rem;
+    /* white-space: pre;*/
+    box-shadow: inset 0 0 12px #00ffe1;
+    min-width: 300px; /* 👈 más ancho */
+    max-width: 400px;
+    border-radius: 12px;
+    height: fit-content;
+    margin-right: 200px;
+    margin-top: 200px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
+}
+
+@@keyframes flicker {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.93;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.layout-zone {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 60px;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+    margin-top: 250px;
+}
+
+.menu-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 200px;
+    margin-top: 200px;
+    min-width: 300px;
+}
+
+.btn-menu {
+    background-color: #111;
+    color: #00ffe1;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    padding: 12px;
+    border: 1px solid #00ffe1;
+    box-shadow: 0 0 10px #00ffe1;
+    transition: 0.3s;
+    text-align: center;
+}
+
+    .btn-menu:hover {
+        background-color: #00ffe1;
+        color: #000;
+        transform: scale(1.05);
+    }
+
+.terminal-box {
+    flex: 1;
+}
